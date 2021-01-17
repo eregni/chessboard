@@ -1,0 +1,26 @@
+{
+    "configurations": [
+        {
+            "name": "Linux",
+            "includePath": [
+                "/home/edoardo/.arduino15/packages/arduino/tools/**",
+                "/home/edoardo/.arduino15/packages/arduino/hardware/avr/1.6.21/**",
+                "/home/edoardo/.arduino15/packages/arduino/hardware/avr/1.6.21/cores/arduino/**",
+                "/home/edoardo/Nextcloud/chessboard/src/arduino/test_an32183a/**",
+                "/home/edoardo/.arduino15/packages/arduino/hardware/avr/1.6.21/libraries/**",
+                "/home/edoardo/Bureaublad/arduino-1.8.13/hardware/arduino/avr/**",
+                "/home/edoardo/Bureaublad/arduino-1.8.13/tools/**"
+            ],
+            "defines": [],
+            "compilerPath": "/usr/bin/clang",
+            "cStandard": "c11",
+            "cppStandard": "c++17",
+            "intelliSenseMode": "clang-x64",
+            "forcedInclude": [
+                "/home/edoardo/.arduino15/packages/arduino/hardware/avr/1.6.21/cores/arduino/Arduino.h",
+                "/home/edoardo/Bureaublad/arduino-1.8.13/hardware/arduino/avr/cores/arduino/Arduino.h"
+            ]
+        }
+    ],
+    "version": 4
+}

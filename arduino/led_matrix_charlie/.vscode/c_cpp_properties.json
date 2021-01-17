@@ -1,0 +1,24 @@
+{
+    "configurations": [
+        {
+            "name": "Linux",
+            "includePath": [
+                "/home/edoardo/.arduino15/packages/arduino/tools/**",
+                "/home/edoardo/.arduino15/packages/arduino/hardware/avr/1.6.21/**",
+                "/home/edoardo/Arduino/libraries/IS31FL3731/**",
+                "/home/edoardo/.arduino15/packages/arduino/tools/avr-gcc/4.9.2-atmel3.5.4-arduino2/avr/include/avr/**",
+                "/home/edoardo/.arduino15/packages/arduino/hardware/avr/1.6.23/**",
+                "/home/edoardo/Arduino/libraries/Adafruit_IS31FL3731_Library/**",
+                "/home/edoardo/Arduino/libraries/Adafruit_GFX_Library/**"
+            ],
+            "forcedInclude": [
+                "/home/edoardo/.arduino15/packages/arduino/hardware/avr/1.6.23/cores/arduino/Arduino.h"
+            ],
+            "intelliSenseMode": "gcc-x64",
+            "compilerPath": "/bin/clang",
+            "cStandard": "c11",
+            "cppStandard": "c++17"
+        }
+    ],
+    "version": 4
+}

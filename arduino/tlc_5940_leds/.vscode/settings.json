@@ -1,0 +1,22 @@
+{
+    "files.associations": {
+        "*.ipp": "cpp",
+        "array": "cpp",
+        "rope": "cpp",
+        "string_view": "cpp",
+        "hash_map": "cpp",
+        "hash_set": "cpp",
+        "slist": "cpp",
+        "initializer_list": "cpp",
+        "valarray": "cpp",
+        "*.tcc": "cpp",
+        "system_error": "cpp",
+        "bitset": "cpp",
+        "*.inc": "cpp",
+        "deque": "cpp",
+        "list": "cpp",
+        "unordered_map": "cpp",
+        "unordered_set": "cpp",
+        "vector": "cpp"
+    }
+}

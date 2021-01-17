@@ -1,0 +1,20 @@
+{
+    "configurations": [
+        {
+            "name": "Linux",
+            "includePath": [
+                "/home/edoardo/Arduino/libraries/SD/src",
+                "/home/edoardo/Arduino/libraries/RTClib/",
+                "/home/edoardo/Downloads/arduino-1.8.6/libraries/**"
+            ],
+            "forcedInclude": [
+                "/home/edoardo/.arduino15/packages/arduino/hardware/avr/1.6.23/cores/arduino/Arduino.h"
+            ],
+            "intelliSenseMode": "gcc-x64",
+            "compilerPath": "/bin/gcc",
+            "cStandard": "c11",
+            "cppStandard": "c++17"
+        }
+    ],
+    "version": 4
+}

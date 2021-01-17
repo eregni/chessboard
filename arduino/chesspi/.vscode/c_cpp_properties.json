@@ -1,0 +1,21 @@
+{
+    "configurations": [
+        {
+            "name": "Linux",
+            "includePath": [
+                // "/home/edoardo/Bureaublad/arduino-1.8.13/hardware/arduino/avr/**",
+                // "/home/edoardo/Bureaublad/arduino-1.8.13/tools/**",
+                "/usr/share/arduino/hardware/archlinux-arduino/avr/cores/arduino/**",
+                "/usr/share/arduino/hardware/archlinux-arduino/avr/libraries/**"
+            ],
+            "forcedInclude": [
+                // "/home/edoardo/Bureaublad/arduino-1.8.13/hardware/arduino/avr/cores/arduino/Arduino.h"
+            ],
+            "intelliSenseMode": "gcc-x64",
+            "compilerPath": "/usr/bin/clang",
+            "cStandard": "c11",
+            "cppStandard": "c++17"
+        }
+    ],
+    "version": 4
+}

@@ -1,0 +1,20 @@
+{
+    "configurations": [
+        {
+            "name": "Linux",
+            "includePath": [
+                "/home/edoardo/Arduino/libraries/Adafruit_MCP23017_Arduino_Library",
+                "/home/edoardo/Downloads/arduino-1.8.6/tools/**",
+                "/home/edoardo/Downloads/arduino-1.8.6/hardware/arduino/avr/**"
+            ],
+            "forcedInclude": [
+                "/home/edoardo/Downloads/arduino-1.8.6/hardware/arduino/avr/cores/arduino/Arduino.h"
+            ],
+            "intelliSenseMode": "gcc-x64",
+            "compilerPath": "/bin/clang",
+            "cStandard": "c11",
+            "cppStandard": "c++17"
+        }
+    ],
+    "version": 4
+}

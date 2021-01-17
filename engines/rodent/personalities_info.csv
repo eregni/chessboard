@@ -1,0 +1,51 @@
+Botvinnik,FAMOUS,USSR,Balanced. Cares for pawn structure. Somewhat willing to accept doubled pawns.,1,1911 - 1995,botvinnik.png
+Spassky,FAMOUS,USSR France Russia,Defensive player who likes grabbing space and cares for pawn structure.,1,1937 -,spassky.png
+Tarrasch,FAMOUS,Germany,Mobility. Emphasis on bishops. Likes open game.,1,1862 - 1934,tarrasch.png
+Réti,FAMOUS,Chzechoslovakia,Disregards Classical piece placement. Solid pawn structure.,1,1889 - 1929,reti.png
+Fischer,FAMOUS,USA Iceland,Attacking. Contemptuous. Mobility raised for both sides.,1,1943 -,fischer.png
+Marshall,FAMOUS,USA,Very high attack. Very high mobility. Sacrificial. Likes knights.,1,1877 - 1944,marshall.png
+Petrosian,FAMOUS,USSR,Defence. Restraint. Likes closed positions. Likes sacrificing exchange.,1,1929 - 1984,petrosian.png
+Steinitz,FAMOUS,Austrian-empire USA,Defensive. Accepts cramped positions. Accepts sacrifices. Solid with pawns.,1,1836 - 1900,steinitz.png
+Nimzowitsch,FAMOUS,Russia Lativia Denmark,Likes knights and restricting opponent's mobility.,1,1886 - 1935,nimzowitsch.png
+Rubinstein,FAMOUS,Russian-empire Poland,Tricky player. Plays varied and unusual openings. may want to sacrifice even though king attacks aren't his chief interest.,1,1880 - 1950,rubinstein.png
+Stone golem,FUN,,Pessimistic and solid with pawns.,0,,
+Deborah,,,defensive player that likes bishops.,0,,
+Sloth,FUN,,Likes bishops and closed positions.,1,,
+Careless,FUN,,Ignores pawn structure. low interest in king attack.,1,,
+Swapper,FUN,,Likes to exchange pieces; high draw rate.,1,,
+Wild,FUN,,Sacrificial attacker. Emphasis on mobility.,1,,
+Spitfire,FUN,,Likes active positions. Detests being under attack.,1,,
+Fighter,FUN,,Likes sacrificing pawns and restricting opponent's mobility.,0,,
+Blais,FUN,,Blais has a blurred vision of the board.,0,,
+Stalker,FUN,,Likes following enemy king with own pieces.,1,,
+Defender,FUN,,Personality that weights enemy attack and mobility marginally higher this is one of the strongest settings.,0,,
+Grumpy,FUN,,Based on attack and restraint. Likes closed positions. Slight contempt. meant to simulate strong elderly player.,0,,
+Vincent,,,Violent attacker (+ piece pressure),0,,
+Caveman,FUN,,Stripped of most knowledge. Relies mostly on raw calculating power.,0,,
+Partisan,FUN,,Emphasizes attack but plays stealthy openings.,1,,
+Sid,FUN,,Sid likes to simplify and win in the endgame.,0,,
+Constrictor,FUN,,It wants to restrict your mobility and to attack.,1,,
+Helpless,FUN,,Severely restricted speed. No regard for material values.,1,,
+Mike,,,Materialist who likes mobility. Limited opening knowledge.,0,,
+Bibi,,,Bibi likes bishop pair. But it is not the end of the story. Playing against two bishops. He will strongly prefer closed positions.,0,,
+Dory,KID,,Weak. Defence oriented.,0,,
+John,KID,,Weak. Neglects protecting own king.,1,,
+Nora,KID,,Weak. Overvalue knights.,1,,
+Rita,KID,,Rita is weak and overvalues rooks.,1,,
+Ben,KID,,Ben is still weak but has balanced outlook on the game. Let's hope he improves!,0,,
+Sue,KID,,"Sue likes to sacrifice, even though at her current tactical level she is yet unable to calculate all the consequences.",1,,
+Chloe,KID,,"Chloe is chaotic, but a bit more tactically aware than the other kids.",1,,
+Lea,KID,,Lea just learned how the pieces move.,1,,
+Pam,KID,,Weak. Overvalues pawns. Cares for pawn structure.,0,,
+Andy,KID,,Weak. Attacker.,0,,
+Frank,KID,,Weak. Rushes forward.,1,,
+Matthew,LEAGUE,,Materialist. slightly above 1800 mark.,1,,
+Patrick,LEAGUE,,Attacking 2000 Elo player who cares for pawn structure.,1,,
+Gabriel,LEAGUE,,Gabriel is for gambits! Estimated strength. 2000 Elo.,0,,
+Arthur,LEAGUE,,1900-ish personality that likes attack and restraint. slow thinker.,1,,
+Theresa,LEAGUE,,Tricky player with a tendency to sacrifice. Lowered attack and raised positional factors.,0,,
+Victor,GM,,Victor is violent and plays gambits.,0,,
+Nancy,GM,,Attacking player who likes closed positions. Approx. elo 2300,0,,
+Kinghunter,FUN,,Mad attacker,1,,
+Drunk,FUN,,Huge random factor in evaluate and messy openings.,1,,
+Tortoise,FUN,,Slow defensive player who likes blocked positions.,1,,
