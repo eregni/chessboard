@@ -13,9 +13,20 @@ void setup(){
     Serial.println("Start");
     // leds.test();
     Serial.print("MTXON: ");
-    Serial.println(leds.read(MTXON));
-    Serial.print("PWMA1: ");
-    Serial.println(leds.read(PWMEN1));
+    Serial.println(leds.read(MTXON), BIN);
+    Serial.print("PWMEN1: ");
+    Serial.println(leds.read(PWMEN1), BIN);
+    Serial.print("DTA1: ");
+    Serial.println(leds.read(DTA1), BIN);
+    Serial.println("Led init");
+    leds.led_setup();
+    Serial.print("MTXON: ");
+    Serial.println(leds.read(MTXON), BIN);
+    Serial.print("PWMEN1: ");
+    Serial.println(leds.read(PWMEN1), BIN);
+    Serial.print("DTA1: ");
+    Serial.println(leds.read(DTA1), BIN);
+    
     Serial.println("driver test done!");
 }
 

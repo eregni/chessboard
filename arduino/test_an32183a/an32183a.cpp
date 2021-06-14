@@ -11,8 +11,6 @@ void AN32183A::begin(byte nrst){
     pinMode(nrst, OUTPUT);
     digitalWrite(nrst, HIGH);
     reset_drivers();
-    // led_setup();
-    Serial.println("Setup done");
 }
   
 void AN32183A::test(){
@@ -57,9 +55,7 @@ int AN32183A::read(int reg){
     Wire.endTransmission();
     
     Wire.requestFrom((int)LED0, 1);
-    Serial.println("Reading...");
     while (Wire.available() == 0);  // Wait for incoming data
-    Serial.println("ping");
     int incoming = Wire.read();
     return incoming;
 }
@@ -79,55 +75,61 @@ void AN32183A::reset_drivers(){
 }
 
 void AN32183A::led_setup(){
-    for (int i = 0; i < sizeof(ADDRESS_LED); i++){
-        Wire.beginTransmission(ADDRESS_LED[i]);
-        Wire.write(MTXON);           
-        Wire.write(0b00011111);               // Matrix on, max current Serial(= 60mA)
-        Wire.endTransmission();
- 
-        Wire.beginTransmission(ADDRESS_LED[i]);
-        Wire.write(SCANSET);
-        Wire.write(0b00001000);
-        Wire.endTransmission();
-        
-        // Wire.beginTransmission(ADDRESS_LED[i]);
-        // Wire.write(CONSTY6_1);      
-        // Wire.write(0x3F);              
-        // Wire.endTransmission();
+      Wire.beginTransmission(LED0);
+      Wire.write(MTXON);           
+      Wire.write(0b00011111);               // Matrix on, max current Serial(= 60mA)
+      Wire.endTransmission();
 
-        // Wire.beginTransmission(ADDRESS_LED[i]);
-        // Wire.write(CONSTY9_7);          
-        // Wire.write(0x07);           
-        // Wire.endTransmission();
+      Wire.beginTransmission(LED0);
+      Wire.write(SCANSET);
+      Wire.write(0b00001000);
+      Wire.endTransmission();
+      
+      // Wire.beginTransmission(ADDRESS_LED[i]);
+      // Wire.write(CONSTY6_1);      
+      // Wire.write(0x3F);              
+      // Wire.endTransmission();
 
-        // Wire.beginTransmission(ADDRESS_LED[i]);
-        // Wire.write(CONSTX6_1);          
-        // Wire.write(0x07);           
-        // Wire.endTransmission();
+      // Wire.beginTransmission(ADDRESS_LED[i]);
+      // Wire.write(CONSTY9_7);          
+      // Wire.write(0x07);           
+      // Wire.endTransmission();
 
-        // Wire.beginTransmission(ADDRESS_LED[i]);
-        // Wire.write(CONSTX10_7);          
-        // Wire.write(0x0F);           
-        // Wire.endTransmission();
+      // Wire.beginTransmission(ADDRESS_LED[i]);
+      // Wire.write(CONSTX6_1);          
+      // Wire.write(0x07);           
+      // Wire.endTransmission();
 
-        Wire.beginTransmission(ADDRESS_LED[i]);  // Enable pwm for all leds
-        Wire.write(PWMEN1);             // PWM mode setup
-        for (int j = 0; j < 10; j++){
-            Wire.write(0xFF);               //  pwm enabled 
-        }
-        Wire.write(0x01);               // The 11'th PWMEN register controls only 1 led
-        Wire.endTransmission();
+      // Wire.beginTransmission(ADDRESS_LED[i]);
+      // Wire.write(CONSTX10_7);          
+      // Wire.write(0x0F);           
+      // Wire.endTransmission();
 
-        // Wire.beginTransmission(ADDRESS_LED[i]);
-        // Wire.write(SLPTIME);            // Fade time setup
-        // Wire.write(0x00);                // TODO: choose...
-        // Wire.endTransmission();
+      Wire.beginTransmission(LED0);  // Enable pwm for all leds
+      Wire.write(PWMEN1);             // PWM mode setup
+      for (int j = 0; j < 10; j++){
+          Wire.write(0xFF);               //  pwm enabled 
+      }
+      Wire.write(0x01);               // The 11'th PWMEN register controls only 1 led
+      Wire.endTransmission();
 
-        // Wire.beginTransmission(ADDRESS_LED[i]);
-        // Wire.write(LINE_A1);   // PWM fade in/out operation
-        // for (int j = 0; j < 81; j++){  // A1 - I8
-        //     Wire.write(0x07);       // = ~23ms between each pwm step
-        // }
-        // Wire.endTransmission();
-    }   
+      
+      Wire.beginTransmission(LED0);  // set pwm duty on led A1
+      Wire.write(DTA1);
+      for (int i=0; i<81; i++){
+        Wire.write(0xFF);
+      }
+      Wire.endTransmission();
+      
+      // Wire.beginTransmission(ADDRESS_LED[i]);
+      // Wire.write(SLPTIME);            // Fade time setup
+      // Wire.write(0x00);                // TODO: choose...
+      // Wire.endTransmission();
+
+      // Wire.beginTransmission(ADDRESS_LED[i]);
+      // Wire.write(LINE_A1);   // PWM fade in/out operation
+      // for (int j = 0; j < 81; j++){  // A1 - I8
+      //     Wire.write(0x07);       // = ~23ms between each pwm step
+      // }
+      // Wire.endTransmission();
 }

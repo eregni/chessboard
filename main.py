@@ -51,8 +51,6 @@ LOG_HANDLER.doRollover()
 # alter loglevel for some mudules to reduce 'noise' in the log file
 logging.getLogger('Image').setLevel(logging.WARNING)
 logging.getLogger('PngImagePlugin').setLevel(logging.WARNING)
-
-
 # End log settings
 # -------------------------------------------------------------------------------------------------
 
