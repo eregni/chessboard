@@ -35,8 +35,6 @@ class AN32183A {
       void squareOff(byte frame, byte square);
       void test();
       int read(int reg);  // Read register
-        
-    private:
       void reset_drivers();
       void led_setup();
 
