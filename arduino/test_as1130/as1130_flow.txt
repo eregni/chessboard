@@ -1,0 +1,36 @@
+as1130 FLOW
+
+read/write operations are defined in the address...
+
+adress bits i2c -> GND = 111 (see page 20in datasheet)
+full adress => 110[3:1 -> adress bits][R/W]
+Reset Pin HIGH (Low to reset all registers)
+
+
+datasheet p 22:
+Start-Up Sequence
+• Power-up the AS1130 (connect VDD to a source), the 
+devices is in shutdown;
+
+• After 5ms the address of the AS1130 is valid and the first 
+I²C command can be send.
+
+• Define RAM Configuration; bit mem_conf in the AS1130 
+Config Register (see Figure 45)
+
+• On/Off Frames 
+• Blink & PWM Sets 
+• Dot Correction, if specified
+• Define Control Register (see Figure 38
+• Current Source
+• Display options
+• Display picture / play movie
+• To light up the LEDs set the shdn bit to ‘1’ for normal 
+operation mode (see Figure 48).
+
+
+
+TEST:
+* wait 5ms
+* set ram config 0x01
+	
