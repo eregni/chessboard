@@ -3,9 +3,6 @@
 #include "an32183a.h"
 
 
-const long I2C_CLOCK = 100000; // i2c "Fast mode"
-
-
 AN32183A::AN32183A(I2CAddress i2cAddress, uint8_t nrstPin)
 {
     _i2cAddress = i2cAddress;
@@ -14,48 +11,60 @@ AN32183A::AN32183A(I2CAddress i2cAddress, uint8_t nrstPin)
 
 /*
 Flow:
-RST: do full reset (???)
-POWERCNT: set to internal oscillator
-OPTION: set options
-MTXON -> MTXON: activate matrix
-MXTON -> IMAX: set led max luminence
+check operation modes -> datasheet p38
+MODES:
+    * Pmw mode
+    * Blinking mode
+    * constant current mode
+NOT IMPLEMENTED MODES:
+    * Melody mode
+    * Masks
+
+START:
+    AN32183A::begin
+        RST: do full reset (??? TODO Not completely figured out how the reset works)
+        POWERCNT: set to internal oscillator
+        OPTION: set options
+        THLOD -> THOLD: set treshold value
+        MTXON -> MTXON: activate matrix
+        MXTON -> IMAX: set led max luminence
+        PWMEN -> PWMEN: enable pwm mode for each led if necesary
+        SLPTIME -> SLPTIME: set fade options
+        SCANSET -> SCANSET: set scanset
+
+CONSTANT CURRENT MODE:
+    set luminece setting for individual leds:
+        AN32183A::setLedLuminance
+            LED_A1 (+80) -> BRTA: set max luminance (relative to MXTON -> IMAX)
+
+PWM MODE:
+    when passing an OptionsSettings object to led.begin() -> set OptionsSettings.pwmMode = true
+    set luminece setting for individual leds: same as in constant current mode
+    control leds with AN32183A::setPwmDuty
+        DTA1 (+80) -> DTA1: set pwm duty cycle -> datasheet p36
+
+BLINKING MODE:
+    make sure OptionsSettings.pwmMode = false
+    set fadeTime setting:
+        AN32183A::setLedFadeTime
+            LED_A1 (+80) -> SDT*: set fade options -> datasheet p37
+    set luminece setting for individual leds: same as in constant current mode
 */
-void AN32183A::begin(bool internalOscillator, bool ghostPrevention, bool melodyMode, bool clkOut, bool extClk, uint8_t maxLuminance){
-    if (maxLuminance > 8) maxLuminance = 8;  // -> datasheet p23 
-    //Wire.setClock(I2C_CLOCK);
+void AN32183A::begin(ChipSettings settings){
     Wire.begin();
     pinMode(_nrstPin, OUTPUT);
     digitalWrite(_nrstPin, HIGH);
     delayMicroseconds(5000); // Start up led driver and wait >4 ms (datasheet P14)
     reset();
-    setInternalOscillator(internalOscillator);
-    setOptions(ghostPrevention, melodyMode, clkOut, extClk);
+    setInternalOscillator(settings.internalOscillator);
+    setOptions(settings.optionsSettings);
+    setTreshold(settings.treshold);
     toggleMatrix(true);
-    setMaxLuminence(7);
+    setMaxLuminence(settings.maxLuminence);
+    setPwmMode(settings.pwmMode);
+    setFadeoptions(settings.slpTimeSettings);
+    setScanset(settings.scanset);
 }
-
-// void AN32183A::test(){
-//     Wire.beginTransmission(_i2cAddress);
-//     Wire.write(DTA1);
-//     for (int j = 0; j < 31; j++){
-//             Wire.write(0xFF);         
-//         }
-//     Wire.endTransmission();
-
-//     Wire.beginTransmission(_i2cAddress);
-//     Wire.write(DTA1);
-//     for (int j = 0; j < 31; j++){
-//             Wire.write(0xFF);         
-//         }
-//     Wire.endTransmission();
-
-//     Wire.beginTransmission(_i2cAddress);
-//     Wire.write(DTA1);
-//     for (int j = 0; j < 19; j++){
-//             Wire.write(0xFF);         
-//         }
-//     Wire.endTransmission();
-// }
 
 // Full reset resets all registers. RAMRST only resets the pwm duty and led intensity settings. (datasheet -> p 22) 
 void AN32183A::reset(bool ramrst, bool srst){
@@ -64,80 +73,40 @@ void AN32183A::reset(bool ramrst, bool srst){
     writeToRegister(RST, value);  
 }
 
-void AN32183A::led_setup(){
-    
-      Wire.beginTransmission(_i2cAddress);
-      Wire.write(MTXON);           
-      Wire.write(0b00011111);               // Matrix on, max current Serial(= 60mA)
-      Wire.endTransmission();
+void AN32183A::toggleMatrix(bool active){
+    uint8_t value = readRegister(MTXON);
+    active ? value |= 1 : value &= 0b00011110;
+    writeToRegister(MTXON, value);
+}
 
-      Wire.beginTransmission(_i2cAddress);  // Turn on internal oscillator
-      Wire.write(POWERCNT);           
-      Wire.write(0x01);               
-      Wire.endTransmission();
+void AN32183A::setPwmDuty(uint8_t ledNr, uint8_t value){
+    if (ledNr < DTA1) ledNr = DTA1;
+    if (ledNr > DTI9) ledNr = DTI9;
+    writeToRegister(ledNr, value);
+}
 
-//      Wire.beginTransmission(LED0);
-//      Wire.write(SCANSET);
-//      Wire.write(0b00001000);
-//      Wire.endTransmission();
-      
-      // Wire.beginTransmission(ADDRESS_LED[i]);
-      // Wire.write(CONSTY6_1);      
-      // Wire.write(0x3F);              
-      // Wire.endTransmission();
+void AN32183A::setLedLuminance(Register ledNr, uint8_t brta){
+    if (ledNr < LED_A1) ledNr = LED_A1;
+    if (ledNr > LED_I9) ledNr = LED_I9;
+    if (brta > 15) brta = 15;
+    uint8_t bitsOn = brta << 4;
+    uint8_t bitsOff = brta << 4 | 0b00001111;  // OR with bitmask: set bits to be ignored to 1
+    uint8_t value = readRegister(ledNr);
+    value |= bitsOn;
+    value &= bitsOff;
+    writeToRegister(ledNr, value);
+}
 
-      // Wire.beginTransmission(ADDRESS_LED[i]);
-      // Wire.write(CONSTY9_7);          
-      // Wire.write(0x07);           
-      // Wire.endTransmission();
-
-      // Wire.beginTransmission(ADDRESS_LED[i]);
-      // Wire.write(CONSTX6_1);          
-      // Wire.write(0x07);           
-      // Wire.endTransmission();
-
-      // Wire.beginTransmission(ADDRESS_LED[i]);
-      // Wire.write(CONSTX10_7);          
-      // Wire.write(0x0F);           
-      // Wire.endTransmission();
-
-      Wire.beginTransmission(_i2cAddress);
-      Wire.write(LED_A1);
-      Wire.write(0b11110000);
-    //   for (int i=0; i<81; i++){
-    //     Wire.write(0b11110000);
-    //   }
-
-      Wire.endTransmission();
-      Wire.beginTransmission(_i2cAddress);  // Enable pwm for all leds
-      Wire.write(PWMEN1);             // PWM mode setup
-      Wire.write(0b00000001);
-    //   for (int j = 0; j < 10; j++){
-    //       Wire.write(0xFF);               //  pwm enabled 
-    //   }
-      Wire.write(0x01);               // The 11'th PWMEN register controls only 1 led
-      Wire.endTransmission();
-
-      Wire.beginTransmission(_i2cAddress);  // set pwm duty on led A1
-      Wire.write(DTA1);
-      Wire.write(0xFF);
-    //   for (int i=0; i<80; i++){
-    //     Wire.write(0xFF);
-    //   }
-      Wire.endTransmission();
-      
-
-      // Wire.beginTransmission(ADDRESS_LED[i]);
-      // Wire.write(SLPTIME);            // Fade time setup
-      // Wire.write(0x00);                // TODO: choose...
-      // Wire.endTransmission();
-
-      // Wire.beginTransmission(ADDRESS_LED[i]);
-      // Wire.write(LINE_A1);   // PWM fade in/out operation
-      // for (int j = 0; j < 81; j++){  // A1 - I8
-      //     Wire.write(0x07);       // = ~23ms between each pwm step
-      // }
-      // Wire.endTransmission();
+void AN32183A::setLedFadeTime(Register ledNr, uint8_t sdt){
+    if (ledNr < LED_A1) ledNr = LED_A1;
+    if (ledNr > LED_I9) ledNr = LED_I9;
+    if (sdt > 7) sdt = 7;
+    uint8_t bitsOn = sdt;
+    uint8_t bitsOff = sdt | 0b11111000;  // OR with bitmask: set bits to be ignored to 1
+    uint8_t value = readRegister(ledNr);
+    value |= bitsOn;
+    value &= bitsOff;
+    writeToRegister(ledNr, value);
 }
 
 uint8_t AN32183A::getRegister(Register reg){
@@ -149,26 +118,52 @@ void AN32183A::setInternalOscillator(bool oscen){
     writeToRegister(POWERCNT, oscen);
 }
 
-void AN32183A::setOptions(bool zpden, bool mldact, bool clkout, bool extclk){
-    uint8_t value = zpden << 3 | mldact << 2 | clkout << 1 | extclk;
+void AN32183A::setOptions(OptionsSettings settings){
+    uint8_t value = settings.ghostPrevention << 3 | settings.melodyMode << 2 | settings.clkOut << 1 | settings.extClk;
     writeToRegister(OPTION, value);
 }
 
-void AN32183A::toggleMatrix(bool active){
-    uint8_t value = readRegister(MTXON);
-    active ? value |= 1 : value &= 0b00011110;
-    writeToRegister(MTXON, value);
-}
-
-// Todo test!
 void AN32183A::setMaxLuminence(uint8_t imax){
-    if (imax > 7) imax = 7;
+    if (imax > 7) imax = 7;  // -> datasheet p23 
     uint8_t bitsOn = imax << 1;
     uint8_t bitsOff = imax << 1 | 0b11110001;  // OR with bitmask: set bits to be ignored to 1
     uint8_t value = readRegister(MTXON);
-    value | bitsOn;
-    value & bitsOff;
+    value |= bitsOn;
+    value &= bitsOff;
     writeToRegister(MTXON, value);
+}
+
+void AN32183A::setPwmMode(bool pmwMode){
+    uint8_t size = 11;
+    uint8_t values[size] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+    if (pmwMode == true){
+        for (int i = 0; i < 10 - 1; i++){
+            values[i] = 0b11111111;
+        }
+        values[-1] = 0b00000001;  // last PMWEN register only uses one bit
+    }
+
+    multiWriteToRegister(PWMEN1, values, size);
+}
+
+void AN32183A::setTreshold(uint8_t treshold){
+    // THOLD register can only hold one HIGH bit. All LOW = 'auto mode' (datasheet p27)
+    uint8_t validOptions[9] = {0, 1, 2, 4, 8, 16, 32, 64, 128};
+    for (int i = 0; i < 9; i++){
+        if (validOptions[i] == treshold) writeToRegister(THOLD, treshold);
+    } 
+}
+
+void AN32183A::setFadeoptions(SlpTimeSettings settings){
+    if (settings.ledOnExtend > 3) settings.ledOnExtend = 3;
+    if (settings.ledOffExtend > 3) settings.ledOffExtend = 3;
+    uint8_t value = settings.slowFadeout << 4 | settings.ledOnExtend << 2 | settings.ledOffExtend;
+    writeToRegister(SLPTIME, value);
+}
+
+void AN32183A::setScanset(uint8_t scanset){
+    if (scanset > 8) scanset = 8;
+    writeToRegister(SCANSET, scanset);
 }
 
 uint8_t AN32183A::readRegister(Register reg){
@@ -183,13 +178,17 @@ uint8_t AN32183A::readRegister(Register reg){
 }
 
 void AN32183A::writeToRegister(Register reg, uint8_t value){
-     Wire.beginTransmission(_i2cAddress);
-     Wire.write(reg);
-     Wire.write(value);
-     Wire.endTransmission();
+    Wire.beginTransmission(_i2cAddress);
+    Wire.write(reg);
+    Wire.write(value);
+    Wire.endTransmission();
 }
 
-void AN32183A::multiWriteToRegister(uint8_t reg, uint8_t value){
-// TODO
+void AN32183A::multiWriteToRegister(Register firstReg, uint8_t values[], uint8_t arraySize){
+    Wire.beginTransmission(_i2cAddress);
+    Wire.write(firstReg);
+    for (int i = 0; i < arraySize; i++){
+        Wire.write(values[i]);
+    }
+    Wire.endTransmission();
 }
-

@@ -33,7 +33,167 @@ enum Register : uint8_t {
   MLDCOM = 0x33,
   SCANSET = 0x36,      // ??? (Not used)
   DTA1 = 0x40,         // Pwm duty control. The next registers are the same until 0x90 (81 registers)
-  LED_A1 = 0x91,       // Luminece + fading setup. The next registers are the same until 0xE1 (81 registers)
+  DTA2 = 0x41,
+  DTA3 = 0x42,
+  DTA4 = 0x43,
+  DTA5 = 0x44,
+  DTA6 = 0x45,
+  DTA7 = 0x46,
+  DTA8 = 0x47,
+  DTA9 = 0x48,
+  DTB1 = 0x49,
+  DTB2 = 0x4a,
+  DTB3 = 0x4b,
+  DTB4 = 0x4c,
+  DTB5 = 0x4d,
+  DTB6 = 0x4e,
+  DTB7 = 0x4f,
+  DTB8 = 0x50,
+  DTB9 = 0x51,
+  DTC1 = 0x52,
+  DTC2 = 0x53,
+  DTC3 = 0x54,
+  DTC4 = 0x55,
+  DTC5 = 0x56,
+  DTC6 = 0x57,
+  DTC7 = 0x58,
+  DTC8 = 0x59,
+  DTC9 = 0x5a,
+  DTD1 = 0x5b,
+  DTD2 = 0x5c,
+  DTD3 = 0x5d,
+  DTD4 = 0x5e,
+  DTD5 = 0x5f,
+  DTD6 = 0x60,
+  DTD7 = 0x61,
+  DTD8 = 0x62,
+  DTD9 = 0x63,
+  DTE1 = 0x64,
+  DTE2 = 0x65,
+  DTE3 = 0x66,
+  DTE4 = 0x67,
+  DTE5 = 0x68,
+  DTE6 = 0x69,
+  DTE7 = 0x6a,
+  DTE8 = 0x6b,
+  DTE9 = 0x6c,
+  DTF1 = 0x6d,
+  DTF2 = 0x6e,
+  DTF3 = 0x6f,
+  DTF4 = 0x70,
+  DTF5 = 0x71,
+  DTF6 = 0x72,
+  DTF7 = 0x73,
+  DTF8 = 0x74,
+  DTF9 = 0x75,
+  DTG1 = 0x76,
+  DTG2 = 0x77,
+  DTG3 = 0x78,
+  DTG4 = 0x79,
+  DTG5 = 0x7a,
+  DTG6 = 0x7b,
+  DTG7 = 0x7c,
+  DTG8 = 0x7d,
+  DTG9 = 0x7e,
+  DTH1 = 0x7f,
+  DTH2 = 0x80,
+  DTH3 = 0x81,
+  DTH4 = 0x82,
+  DTH5 = 0x83,
+  DTH6 = 0x84,
+  DTH7 = 0x85,
+  DTH8 = 0x86,
+  DTH9 = 0x87,
+  DTI1 = 0x88,
+  DTI2 = 0x89,
+  DTI3 = 0x8a,
+  DTI4 = 0x8b,
+  DTI5 = 0x8c,
+  DTI6 = 0x8d,
+  DTI7 = 0x8e,
+  DTI8 = 0x8f,
+  DTI9 = 0x90,
+  LED_A1 = 0x91,       // Luminance + fading setup.  The next registers are the same until 0xE1 (81 registers)
+  LED_A2 = 0x92,
+  LED_A3 = 0x93,
+  LED_A4 = 0x94,
+  LED_A5 = 0x95,
+  LED_A6 = 0x96,
+  LED_A7 = 0x97,
+  LED_A8 = 0x98,
+  LED_A9 = 0x99,
+  LED_B1 = 0x9a,
+  LED_B2 = 0x9b,
+  LED_B3 = 0x9c,
+  LED_B4 = 0x9d,
+  LED_B5 = 0x9e,
+  LED_B6 = 0x9f,
+  LED_B7 = 0xa0,
+  LED_B8 = 0xa1,
+  LED_B9 = 0xa2,
+  LED_C1 = 0xa3,
+  LED_C2 = 0xa4,
+  LED_C3 = 0xa5,
+  LED_C4 = 0xa6,
+  LED_C5 = 0xa7,
+  LED_C6 = 0xa8,
+  LED_C7 = 0xa9,
+  LED_C8 = 0xaa,
+  LED_C9 = 0xab,
+  LED_D1 = 0xac,
+  LED_D2 = 0xad,
+  LED_D3 = 0xae,
+  LED_D4 = 0xaf,
+  LED_D5 = 0xb0,
+  LED_D6 = 0xb1,
+  LED_D7 = 0xb2,
+  LED_D8 = 0xb3,
+  LED_D9 = 0xb4,
+  LED_E1 = 0xb5,
+  LED_E2 = 0xb6,
+  LED_E3 = 0xb7,
+  LED_E4 = 0xb8,
+  LED_E5 = 0xb9,
+  LED_E6 = 0xba,
+  LED_E7 = 0xbb,
+  LED_E8 = 0xbc,
+  LED_E9 = 0xbd,
+  LED_F1 = 0xbe,
+  LED_F2 = 0xbf,
+  LED_F3 = 0xc0,
+  LED_F4 = 0xc1,
+  LED_F5 = 0xc2,
+  LED_F6 = 0xc3,
+  LED_F7 = 0xc4,
+  LED_F8 = 0xc5,
+  LED_F9 = 0xc6,
+  LED_G1 = 0xc7,
+  LED_G2 = 0xc8,
+  LED_G3 = 0xc9,
+  LED_G4 = 0xca,
+  LED_G5 = 0xcb,
+  LED_G6 = 0xcc,
+  LED_G7 = 0xcd,
+  LED_G8 = 0xce,
+  LED_G9 = 0xcf,
+  LED_H1 = 0xd0,
+  LED_H2 = 0xd1,
+  LED_H3 = 0xd2,
+  LED_H4 = 0xd3,
+  LED_H5 = 0xd4,
+  LED_H6 = 0xd5,
+  LED_H7 = 0xd6,
+  LED_H8 = 0xd7,
+  LED_H9 = 0xd8,
+  LED_I1 = 0xd9,
+  LED_I2 = 0xda,
+  LED_I3 = 0xdb,
+  LED_I4 = 0xdc,
+  LED_I5 = 0xdd,
+  LED_I6 = 0xde,
+  LED_I7 = 0xdf,
+  LED_I8 = 0xe0,
+  LED_I9 = 0xe1
 };
 
 enum RegisterDefaults : uint8_t {
@@ -53,33 +213,67 @@ enum RegisterDefaults : uint8_t {
   MASKY9_7_DEFAULT = 0x00,
   SLPTIME_DEFAULT = 0x00,
   MLDCOM_DEFAULT = 0x03,    // 11 -> MLDCOM: 5.8µs
-  SCANSET_DEFAULT = 0x08,   // 1000 -> scanset: Scan all columns
+  SCANSET_DEFAULT = 0x08,   // 1000 -> scanset: Scan all columns/Fade delay multiplier = 0.999 -> datasheet p37
   DT_DEFAULT = 0x00,
   LED_DEFAULT = 0x00
+};
+
+struct Led{
+  uint8_t A1 = 0;
+};
+
+// Objects holding registry options. All settings have the same default value as the datasheet except for 'maxluminence' 
+struct OptionsSettings{  // OPTION registers -> datasheet p23
+  bool ghostPrevention = false;
+  bool melodyMode = false;
+  bool clkOut = false;
+  bool extClk = false;
+};
+
+struct SlpTimeSettings{  // Control fade timings -> datasheet p34
+  bool slowFadeout = false;
+  uint8_t ledOnExtend = 0;  
+  uint8_t ledOffExtend = 0;
+};
+
+struct ChipSettings{
+  bool internalOscillator = true;
+  OptionsSettings optionsSettings;
+  uint8_t maxLuminence = 7;
+  bool pwmMode = false;
+  uint8_t treshold = 0;
+  SlpTimeSettings slpTimeSettings;
+  uint8_t scanset = 8;
 };
 
 // Fucntions are ordered the same way as in the datasheet
 class AN32183A {
   public:
       AN32183A(I2CAddress i2cAddress, uint8_t nrstPin);
-      void begin(bool internalOscillator = true, bool ghostPrevention = false, bool melodyMode = false, bool clkOut = false, bool extClk = false, uint8_t maxLuminance = 8);
+      void begin(ChipSettings chipSettings);
       void reset(bool ramrst = true, bool srst = true);
-//      void test();
+      void toggleMatrix(bool active);
+      void setPwmDuty(uint8_t ledNr, uint8_t value);
+      void setLedLuminance(Register ledNr, uint8_t brta);
+      void setLedFadeTime(Register ledNr, uint8_t sdt);
       uint8_t getRegister(Register reg);
       void led_setup();
 
     private:
       void setInternalOscillator(bool oscen);
-      void setOptions(bool ghostPrevention, bool melodyMode, bool clkOut, bool extClk);
-      void toggleMatrix(bool active);
+      void setOptions(OptionsSettings settings);
       void setMaxLuminence(uint8_t imax);
+      void setPwmMode(bool pwmActive);
+      void setTreshold(uint8_t treshold);
+      void setFadeoptions(SlpTimeSettings settings);
+      void setScanset(uint8_t scanset);
       uint8_t readRegister(Register reg);
       void writeToRegister(Register reg, uint8_t value);
-      void multiWriteToRegister(uint8_t reg, uint8_t value);
+      void writePwmDuty(Register reg, uint8_t value);
+      void multiWriteToRegister(Register firstReg, uint8_t [], uint8_t arraySize);
+      void writeToRegister(uint8_t reg, uint8_t value);
       
     private:
-      
       I2CAddress _i2cAddress;
       uint8_t _nrstPin;
 };
-

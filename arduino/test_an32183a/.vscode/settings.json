@@ -11,6 +11,7 @@
         "string_view": "cpp",
         "initializer_list": "cpp",
         "valarray": "cpp",
-        "ranges": "cpp"
+        "ranges": "cpp",
+        "*.tcc": "cpp"
     }
 }

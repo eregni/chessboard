@@ -1,0 +1,10 @@
+core
+.idea/
+__pycache__/
+.pytest_cache
+syzygy/
+/syzygy/
+/.dmypy.json
+.mypy_cache/
+.dmypy.json
+/log/
